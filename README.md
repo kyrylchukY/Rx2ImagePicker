@@ -3,4 +3,3 @@ It's a fork of https://github.com/MLSDev/RxImagePicker but with RxJava2 usage to
 
 ## Usage
 See https://github.com/MLSDev/RxImagePicker#example
-An easy way to get image from Gallery or Camera with request runtime permission on Android M using RxJava
