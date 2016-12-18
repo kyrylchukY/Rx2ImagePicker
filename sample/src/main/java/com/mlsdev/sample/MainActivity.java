@@ -16,14 +16,14 @@ import com.mlsdev.rximagepicker.Sources;
 
 import java.io.File;
 
-import rx.Observable;
-import rx.Subscription;
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 
 public class MainActivity extends AppCompatActivity {
 
     private ImageView ivPickedImage;
     private RadioGroup converterRadioGroup;
-    private Subscription subscription;
+    private Disposable disposable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +47,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (subscription != null) {
-            subscription.unsubscribe();
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
         }
     }
 
     private void pickImageFromSource(Sources source) {
-        subscription = RxImagePicker.with(this).requestImage(source)
+        disposable = RxImagePicker.with(this).requestImage(source)
                 .flatMap(uri -> {
                     switch (converterRadioGroup.getCheckedRadioButtonId()) {
                         case R.id.radio_file:

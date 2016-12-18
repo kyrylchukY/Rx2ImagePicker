@@ -1,19 +1,21 @@
 package com.mlsdev.rximagepicker;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.util.Log;
 
 import java.util.List;
 
-import rx.Observable;
-import rx.subjects.PublishSubject;
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
+
 
 public class RxImagePicker {
 
+    @SuppressLint("StaticFieldLeak")
     private static RxImagePicker instance;
 
     public static synchronized RxImagePicker with(Context context) {
@@ -51,14 +53,14 @@ public class RxImagePicker {
     void onImagePicked(Uri uri) {
         if (publishSubject != null) {
             publishSubject.onNext(uri);
-            publishSubject.onCompleted();
+            publishSubject.onComplete();
         }
     }
 
     void onImagesPicked(List<Uri> uris) {
         if (publishSubjectMultipleImages != null) {
             publishSubjectMultipleImages.onNext(uris);
-            publishSubjectMultipleImages.onCompleted();
+            publishSubjectMultipleImages.onComplete();
         }
     }
 
